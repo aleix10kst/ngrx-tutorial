@@ -1,10 +1,23 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import {AuthGuard} from '../auth/auth.guard';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: 'courses',
+    loadChildren: '../courses/courses.module#CoursesModule',
+    canActivate: [
+      AuthGuard
+    ],
+  },
+  {
+    path: '**',
+    redirectTo: '/'
+  }
+];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class CoreRoutingModule { }
